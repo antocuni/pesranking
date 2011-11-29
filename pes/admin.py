@@ -10,7 +10,20 @@ class UserProfileAdmin(admin.ModelAdmin):
     readonly_fields = fields
     ordering = ['-ranking']
 
+class MatchAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {
+                'classes': ('fixed-columns',),
+                'fields': ['date',
+                           ('userA', 'userB'),
+                           ('teamA', 'teamB'),
+                           ('goalA', 'goalB'),
+                           ('deltaA', 'deltaB'),
+                           ]
+                })
+        ]
+    readonly_fields = ['deltaA', 'deltaB']
 
 admin.site.register(models.Team)
-admin.site.register(models.Match)
+admin.site.register(models.Match, MatchAdmin)
 admin.site.register(models.UserProfile, UserProfileAdmin)
