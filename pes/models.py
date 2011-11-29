@@ -114,9 +114,15 @@ class Match(models.Model):
     @classmethod
     def updateranking(cls):
         matches = list(cls.objects.filter(deltaA = None))
-        import pdb;pdb.set_trace()
         for match in matches:
             match.play()
+        #
+        for match in matches:
+            for (user, delta) in ((match.userA, match.deltaA),
+                                  (match.userB, match.deltaB)):
+                profile = UserProfile.objects.get(user=user.id)
+                profile.ranking += delta
+                profile.save()
 
 def calc_delta(K, exp_result, result):
     return K * (result-exp_result)
