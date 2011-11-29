@@ -6,6 +6,8 @@ ROOT = py.path.local(__file__).dirpath()
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+AUTH_PROFILE_MODULE = 'pes.UserProfile'
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -123,7 +125,7 @@ INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
     'django_evolution',
-    'spedizioni',
+    'pes',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
