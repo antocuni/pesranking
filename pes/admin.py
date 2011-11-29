@@ -4,4 +4,4 @@ from django.contrib.admin.util import flatten_fieldsets
 from pes import models
 
 admin.site.register(models.Team)
-#admin.site.register(models.Match)
+admin.site.register(models.Match)

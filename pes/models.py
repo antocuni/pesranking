@@ -17,7 +17,8 @@ post_save.connect(create_user_profile, sender=User)
 class Team(models.Model):
 
     class Meta:
-        pass
+        verbose_name = "Squadra"
+        verbose_name_plural = "Squadre"
 
     name = models.CharField(max_length=200)
     att = models.IntegerField()
@@ -39,13 +40,17 @@ class Team(models.Model):
         return '%s (%s)' % (self.name, self.ranking())
 
 
-class Match(object):
+class Match(models.Model):
+
+    class Meta:
+        verbose_name = "Partita"
+        verbose_name_plural = "Partite"
 
     date = models.DateField(default=datetime.date.today)
-    userA = models.ForeignKey(User)
-    teamA = models.ForeignKey(Team)
-    userB = models.ForeignKey(User)
-    teamB = models.ForeignKey(Team)
+    userA = models.ForeignKey(User, related_name='+')
+    teamA = models.ForeignKey(Team, related_name='+')
+    userB = models.ForeignKey(User, related_name='+')
+    teamB = models.ForeignKey(Team, related_name='+')
     goalA = models.IntegerField(blank=True, null=True)
     goalB = models.IntegerField(blank=True, null=True)
     deltaA = models.IntegerField(blank=True, null=True)
