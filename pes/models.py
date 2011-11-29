@@ -68,8 +68,8 @@ class Match(models.Model):
     teamA = models.ForeignKey(Team, related_name='+')
     userB = models.ForeignKey(User, related_name='+')
     teamB = models.ForeignKey(Team, related_name='+')
-    goalA = models.IntegerField(blank=True, null=True)
-    goalB = models.IntegerField(blank=True, null=True)
+    goalA = models.IntegerField()
+    goalB = models.IntegerField()
     deltaA = models.FloatField(blank=True, null=True)
     deltaB = models.FloatField(blank=True, null=True)
 
