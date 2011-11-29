@@ -10,6 +10,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     readonly_fields = fields
     ordering = ['-ranking']
 
+
 admin.site.register(models.Team)
 admin.site.register(models.Match)
 admin.site.register(models.UserProfile, UserProfileAdmin)

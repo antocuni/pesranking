@@ -1,4 +1,8 @@
-# Create your views here.
+from django.http import HttpResponseRedirect
+from pes import models
+
 
 def updateranking(request):
-    pass
+    models.Match.updateranking()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
