@@ -99,7 +99,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'pes.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     ROOT.join('templates'),
@@ -138,7 +138,7 @@ if 'grappelli' in INSTALLED_APPS:
     ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 GRAPPELLI_ADMIN_TITLE = "PES Ranking"
-#GRAPPELLI_INDEX_DASHBOARD = 'saputo.dashboard.CustomIndexDashboard'
+GRAPPELLI_INDEX_DASHBOARD = 'pesranking.dashboard.CustomIndexDashboard'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

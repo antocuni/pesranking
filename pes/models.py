@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    ranking = models.FloatField()
+    ranking = models.FloatField(default=1600)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -15,6 +15,9 @@ post_save.connect(create_user_profile, sender=User)
 
 
 class Team(models.Model):
+
+    class Meta:
+        pass
 
     name = models.CharField(max_length=200)
     att = models.IntegerField()
