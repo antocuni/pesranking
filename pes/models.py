@@ -37,7 +37,7 @@ class Team(models.Model):
                      self.tec)/6
 
     def __unicode__(self):
-        return '%s (%s)' % (self.name, self.ranking())
+        return '%s (%.2f)' % (self.name, self.ranking())
 
 
 class Match(models.Model):
@@ -79,15 +79,19 @@ class Match(models.Model):
         self.deltaB = calc_delta(K, Eb, 1.0-result)
 
     def __str__(self):
-        return '%s - %s (%s - %s) %d - %d (%.3f, %.3f)' % (
+        def fmtfloat(x):
+            if x is None:
+                return ''
+            return '%.3f' % x
+        return '%s - %s (%s - %s) %d - %d (%s, %s)' % (
             self.userA.username,
             self.userB.username,
-            self.teamA.username,
-            self.teamB.username,
+            self.teamA.name,
+            self.teamB.name,
             self.goalA,
             self.goalB,
-            self.deltaA,
-            self.deltaB)
+            fmtfloat(self.deltaA),
+            fmtfloat(self.deltaB))
 
 
 def calc_delta(K, exp_result, result):
