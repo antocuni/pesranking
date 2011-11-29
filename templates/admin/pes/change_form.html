@@ -1,0 +1,81 @@
+{% extends "admin/change_form.html" %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <!-- automatically turn <select> into jquery comboboxes -->
+    <link type="text/css" href="/static/css/jquery-dialog.custom.css" rel="stylesheet" />
+    <style>
+      .ui-autocomplete-input {
+          background-color: white;
+          height: 25px;
+          width: 250px;
+      }
+
+       .span-flexible {
+          width: 350px!important;
+      }
+
+      #container_set-group input.vTextField,
+      #container_set-group .ui-autocomplete-input
+      {
+          width: 178px;
+      }
+    </style>
+
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.grp_inline-custom.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.combobox.js"></script>
+
+    <script type="text/javascript">
+      var $my_jq = jQuery.noConflict();
+
+      function enable_combobox($) {
+          $(document).ready(function() {
+              // turn all selects into comboboxes
+              $("select").combobox();
+              //$("select").show();
+
+              // add an "edit this" button to all comboboxes
+              var tag="<a class='edit-this' href='#'><img src='/static/grappelli/img/icons/icon-changelink.png' alt='Modifica'></a>"
+              $(".add-another").parent().append(tag);
+              $(".edit-this").click(function () {
+                  // find the right URL
+                  var add_url = $(this).siblings(".add-another").attr("href");
+                  var id = $(this).siblings("select").attr("value");
+                  var edit_url = add_url.replace("/add/", "/" + id + "/");
+                  $(this).attr("href", edit_url);
+                  return showAddAnotherPopup(this);
+              });
+          });
+      }
+
+      function fix_checkbox_labels($) {
+          $(document).ready(function() {
+              var checkbox = $("input[type=checkbox]");
+              var label = checkbox.siblings("label");
+              var div = checkbox.parent().siblings(".span-4");
+              div.empty();
+              label.attr("class", "");
+              label.appendTo(div);
+          })
+      }
+
+      enable_combobox($my_jq);
+      fix_checkbox_labels($my_jq);
+    </script>
+
+    <script type="text/javascript">
+      (function($) {
+        $(document).ready(function() {
+            // move the button to the submit row
+            $('.move_to_submit_row').insertAfter('.submit-row>li:first');
+
+            // move the "move_to_bottom" fieldsets to the bottom of the form
+            var to_move = $my_jq('.move_to_bottom');
+            to_move.appendTo(to_move.parent())
+        });
+      })($my_jq);
+    </script>
+{% endblock %}
