@@ -24,8 +24,27 @@ class MatchAdmin(admin.ModelAdmin):
         ]
     readonly_fields = ['deltaA', 'deltaB']
 
+from django.contrib.admin.views.main import ChangeList
+
+class UnorderedChangeList(ChangeList):
+    def get_ordering(self):
+        return '', ''
+
 class TeamAdmin(admin.ModelAdmin):
     list_display = ['__unicode__', 'att', 'dif', 'tat', 'vel', 'tec', 'fis']
+    ordering = None
+
+    def queryset(self, request):
+        qs = self.model._default_manager.get_query_set()
+        qs = qs.extra(select={
+                'total': 'att+dif+tat+vel+tec+fis'
+                })
+        qs = qs.order_by('-total')
+        return qs
+
+    def get_changelist(self, request, **kwargs):
+        return UnorderedChangeList
+
 
 admin.site.register(models.Team, TeamAdmin)
 admin.site.register(models.Match, MatchAdmin)
