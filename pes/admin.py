@@ -11,6 +11,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     ordering = ['-ranking']
 
 class MatchAdmin(admin.ModelAdmin):
+    list_display = ['users', 'teams', 'goals', 'deltaA', 'deltaB']
+    list_display_links = list_display
+    
     fieldsets = [
         (None, {
                 'classes': ('fixed-columns',),
@@ -23,6 +26,18 @@ class MatchAdmin(admin.ModelAdmin):
                 })
         ]
     readonly_fields = ['deltaA', 'deltaB']
+
+    def users(self, obj):
+        return u'%s - %s' % (obj.userA.username, obj.userB.username)
+    users.short_description = 'Utenti'
+
+    def teams(self, obj):
+        return u'%s - %s' % (obj.teamA.name, obj.teamB.name)
+    teams.short_description = 'Squadre'
+
+    def goals(self, obj):
+        return u'%s - %s' % (obj.goalA, obj.goalB)
+    goals.short_description = 'Risultato'
 
 from django.contrib.admin.views.main import ChangeList
 
