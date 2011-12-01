@@ -35,10 +35,10 @@ class Team(models.Model):
     name = models.CharField(max_length=200)
     att = models.IntegerField()
     dif = models.IntegerField()
-    fis = models.IntegerField()
+    tat = models.IntegerField()    
     vel = models.IntegerField()
-    tat = models.IntegerField()
     tec = models.IntegerField()
+    fis = models.IntegerField()
 
     def ranking(self):
         return float(self.att+
