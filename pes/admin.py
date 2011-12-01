@@ -24,6 +24,9 @@ class MatchAdmin(admin.ModelAdmin):
         ]
     readonly_fields = ['deltaA', 'deltaB']
 
-admin.site.register(models.Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ['__unicode__', 'att', 'dif', 'tat', 'vel', 'tec', 'fis']
+
+admin.site.register(models.Team, TeamAdmin)
 admin.site.register(models.Match, MatchAdmin)
 admin.site.register(models.UserProfile, UserProfileAdmin)
